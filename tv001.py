@@ -5,7 +5,7 @@ cap = cv2.VideoCapture(0)
 count = 0
 mean=[]
 std=[]
-n=10
+n=20
 s=2
 t1=200	#above which is considered as high (white)
 
@@ -18,8 +18,35 @@ while cap.isOpened():
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     ret,thresh1 = cv2.threshold(gray,t1,255,cv2.THRESH_BINARY)
     cv2.imshow('window-name',thresh1)
+    z=np.mean(thresh1)
+    #q=np.std(thresh1)
+    #mean.append(z)
+    print(" mean =\n")
+    print(z)
     
     
+    """
+    import numpy as np
+    import cv2
+
+    im = cv2.imread('test.jpg')
+    imgray = cv2.cvtColor(im,cv2.COLOR_BGR2GRAY)
+    ret,thresh = cv2.threshold(imgray,127,255,0)
+    image, contours, hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+    
+    img = cv2.drawContours(img, contours, -1, (0,255,0), 3)
+    
+    cnt = contours[4]
+    img = cv2.drawContours(img, [cnt], 0, (0,255,0), 3)
+
+
+    
+    """
+    
+    
+    #std.append(q)
+    
+    """
     for i in range(1,n+1):
     
     	if count == s*i :
@@ -30,16 +57,6 @@ while cap.isOpened():
 		#b,g,r=cv2.split(img1)
 		#np.set_printoptions(threshold=np.nan)
 		#print(b)
-		
-		#imgray = cv2.cvtColor(r, cv2.COLOR_BGR2GRAY)
-		ret, thresh = cv2.threshold(r, 50, 255, 0)
-
-		im2, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-		if count == 10:
-			cv2.imwrite("aaacontour.jpg",im2)
-			print(hierarchy)
-			imcoun=cv2.drawContours(im2,contours,-1,(255,255,0),25);
-			cv2.imwrite("aaaadraw.jpg",imcoun)
 		z=np.mean(r)
 		q=np.std(r)
 		mean.append(z)
@@ -50,7 +67,8 @@ while cap.isOpened():
 			print(mean)
 			print("\n")
 			print("standard deviation =\n")
-			print(std)		
+			print(std)	
+    """	
     count = count + 1
     
     
